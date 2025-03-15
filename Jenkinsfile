@@ -25,6 +25,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Installation des dépendances') {
+            steps {
+                script {
+                    // Change cette ligne selon ta technologie
+                    sh 'npm install'  // 🔹 Node.js
+                }
+            }
+        }
     }
 
     post {
