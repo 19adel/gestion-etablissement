@@ -1,27 +1,28 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:18'  // Utilisation de l'image officielle Node.js 18
-        }
+pipeline { 
+    agent any
+
+    environment {
+        GIT_REPO = 'https://github.com/Limatou4/gestionEtablissement.git'
+        GIT_BRANCH = 'main' // Remplace par la branche que tu veux cloner
     }
 
     stages {
-        stage('Vérification de Node.js') {
+        stage('Nettoyage') {
             steps {
-                sh 'node -v'  // Vérifie si Node.js est bien installé
-                sh 'npm -v'   // Vérifie si npm est bien installé
+                cleanWs()
             }
         }
 
         stage('Cloner le code') {
             steps {
-                git branch: 'master', url: 'https://github.com/19adel/gestion-etablissement.git'
-            }
-        }
-
-        stage('Installation des dépendances') {
-            steps {
-                sh 'npm install'  // Installe les dépendances du projet
+                script {
+                    try {
+                        git branch: GIT_BRANCH, url: GIT_REPO
+                        echo '✅ Clonage réussi !'
+                    } catch (Exception e) {
+                        error '❌ Erreur lors du clonage, vérifiez les logs.'
+                    }
+                }
             }
         }
     }
