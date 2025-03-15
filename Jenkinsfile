@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_REPO = 'https://github.com/19adel/gestion-etablissement.git'
-        GIT_BRANCH = 'main' // Remplace par la branche que tu veux cloner
+        GIT_BRANCH = 'master' // Remplace par la branche que tu veux cloner
     }
 
     stages {
